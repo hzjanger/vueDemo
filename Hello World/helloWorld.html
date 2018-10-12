@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="../assess/js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h4>双大括号表达式</h4>
+    <p>{{address}}</p>
+    <p v-text="address">百度</p>
+    <p v-html="address"></p><!-- 这个要谨慎使用-->
+    <h4>指令一: 强制数据绑定</h4>
+    <!--<img v-bind:src="imgUrl" style="width: 50px;">-->
+    <!--还可以这样写-->
+    <!--<img :src="imgUrl" style="width: 50px;">-->
+    <h4>指令二: 绑定事件监听</h4>
+    <button v-on:click="test1()">test1</button>
+    <!--还可以这样写-->
+    <button @click="test2('hello world')">hello world</button>
+
+    <input type="text" v-model="message"><br>
+    <p></p>
+    {{ message }}
+</div>
+<div id="app2">
+    <span v-bind:title="message">鼠标悬停几秒查看此处动态绑定的提示信息</span>
+</div>
+<div id="app3">
+    <p>{{a}}</p>
+        <!--添加的b不会显示， 而且会报错-->
+    <p>{{b}}</p>
+</div>
+<div id="app4">
+    <p>{{foo}}</p>
+    <button v-on:click="foo = 'baz'">change it</button>
+</div>
+<script>
+    /*每个Vue应用都是通过Vue函数创建一个新的Vue实例开始的:*/
+
+    var app = new Vue({ //配置对象
+        el: '#app', //element 选择器
+        data: { //数据（model）
+            message: 'Hello Vue!',
+            address: '<a href="http://www.baidu.com">百度</a>',
+            imgUrl: 'https://cn.vuejs.org/images/logo.png'
+        },
+        methods: {
+            test1() {
+                console.log('hello world');
+            },
+            test2(value) {
+                console.log(value);
+            }
+
+        }
+    });
+    var myApp2 = new Vue({
+       el: '#app2',
+       data: {
+           message: '页面加载于' + new Date().toLocaleString()
+       }
+    });
+    var data = {a: 1}
+    var myApp3 = new Vue({
+        el: '#app3',
+        data: data
+        // data: data
+    });
+    myApp3.a = '123';
+    //只有当实例被创建的时候， data中存在的数据才是响应式的, 如果添加一个新的属性， 不会触发任何视图的更新
+    myApp3.b = 'ksdfk';
+    console.log(myApp3.b);
+
+    var obj = {
+        foo: 'bar'
+    };
+    //Object.freeze(): 会阻止修改现有的属性, 也意味着响应系统无法在追踪变化
+    Object.freeze(obj);
+    var myApp4 = new Vue({
+        el: '#app4',
+        data: obj
+    })
+
+</script>
+</body>
+</html>

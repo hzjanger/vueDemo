@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表渲染</title>
+    <script src="../assess/js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <div>
+        <input type="text" v-model="searchName">
+    </div>
+    <ul>
+        <li v-for="(item, index) of filterPerson" :key="index">
+            {{index}}---{{item.name}} ---- {{item.age}}
+        </li>
+    </ul>
+    <button @click="sortAge()">年龄升序</button>
+    <button>年龄降序</button>
+    <button>年龄原序</button>
+</div>
+<script>
+    var myApp = new Vue({
+        el: '#app',
+        data: {
+            person: [
+                {name: 'tom', age: 13},
+                {name: 'jack', age: 12},
+                {name: 'bob', age: 17},
+                {name: 'Cat', age: 14},
+                {name: 'mike', age: 14},
+                {name: 'monica', age: 16},
+            ],
+            searchName: ''
+        },
+        computed: {
+            filterPerson() {
+                //取出相关的数据
+                let filterPersons;
+                filterPersons = this.person.filter(persons => {
+                    return persons.name.indexOf(this.searchName) !== -1;
+                });
+                return filterPersons;
+            }
+        },
+        methods:{
+
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../assess/js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p v-if="ok">v-if</p>
+    <p v-else>v-else</p>
+    <p v-show="ok">v-show-true</p>
+    <p v-show="!ok">v-show-false</p>
+    <button @click="ok = !ok">切换</button>
+</div>
+<script>
+    var myApp = new Vue({
+        el: '#app',
+        data: {
+            ok: true,
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../assess/js/vue.js"></script>
+    <style>
+        #dynamicId {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="app1">
+    <h4>文本插入</h4>
+    <p>这个会动态的变化: {{message}}</p>
+    <p v-once>这个将不会动态的变化: {{message}}</p>
+    <h4>原始HTML</h4>
+    <!--双大括号语法会把变量作为一个字符串来解析， 就算是html标签， 还是以一个字符串的格式来显示-->
+    <p>使用mustaches（双大括号语法)————{{rawHtml}}</p>
+    <!-- v-html会把变量作为尽可能的作为一个html标签来解析， 但是要注意这样做会非常危险， 很容易导致xss攻击-->
+    <p>使用v-html语法———— <span v-html="rawHtml"></span></p>
+    <h4>特性</h4>
+    <div v-bind:id="dynamicId">v-bind指令</div>
+    <h4>使用javaScript表达式</h4>
+    <p>使用加法 1 + 1 = {{1 + 1}}</p>
+    <h4>指令</h4>
+    <p v-if="seen">v-if指令， seen为true插入p元素， seen为false移除p元素</p>
+    <h4>参数</h4>
+    <a v-bind:href="url">一些指令可以接收一个'参数', 在指令名称之后以冒号表示</a>
+</div>
+<script>
+    var myApp1 = new Vue({
+        el: '#app1',
+        data: {
+            message: '这是一条消息',
+            rawHtml: '<span style="color: red;">红色</span>',
+            dynamicId: 'dynamicId',
+            seen: true,
+            url: 'http://www.baidu.com'
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../assess/js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <div>
+        姓: <input type="text" v-model="firstName">
+    </div>
+    <div>
+        名: <input type="text" v-model="lastName">
+    </div>
+    <div>
+        姓名1(单向) : <input type="text" v-model="fullName1">
+    </div>
+    <div>
+        姓名2(单向): <input type="text" v-model="fullName2">
+    </div>
+    <div>
+        姓名3(双向): <input type="text" v-model="fullName3">
+    </div>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            firstName: '',
+            lastName: '',
+            fullName2: ''
+        },
+        computed: {
+            fullName1() {
+                return this.firstName + ' ' + this.lastName;
+            },
+            fullName3: {
+                get() {
+                    return this.firstName + ' ' + this.lastName;
+                },
+                set(value) {
+                    this.firstName = value.split(' ')[0];
+                    this.lastName = value.split(' ')[1];
+                }
+            }
+        },
+        watch: { //配置监视
+            /*可以有两个参数， 第一个表示变化后的值， 第二个表示变化前的值*/
+            // firstName: function (newValue, oldValue) {
+            //     console.log(this);
+            //     console.log('newValue = ' + newValue);
+            //     console.log('oldValue = ' + oldValue);
+            // }
+            firstName: function (value) {
+                this.fullName2 = this.firstName + ' ' + this.lastName;
+            }
+        }
+    });
+    // app.$watch('lastName', function (value) { //这里的参数也有两种写法，只写一个表示改变后的值
+    //     this.fullName2 = this.firstName + ' ' + value;
+    // });
+    app.$watch('lastName', function (newValue, oldValue) { //这里的参数也有两种写法，写两个， 第一个表示改变后的值， 第二个表示改变之前的值
+        this.fullName2 = this.firstName + ' ' + newValue;
+    })
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../assess/js/vue.js"></script>
+    <style>
+        .aClass {
+            font-size: 20px;
+        }
+
+        .bClass {
+            color: red;
+        }
+
+        .cClass {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <h4>class绑定 :class</h4>
+    <p class="aClass" :class="bClass">单个class绑定</p>
+    <p class="aClass" :class="{bClass: isA, cClass: isB}">对象class绑定</p>
+    <p :class="['aClass', bClass]">数组class绑定</p>
+    <h4>style绑定:style</h4>
+    <p :style="{ color: styleColor, fontSize: fontSize + 'px'}">style绑定</p>
+
+
+    <button @click="updateColor()">更新</button>
+
+    <h5>v-bind用于clsss和style ———— 只需要通过表达式计算出字符串的结果即可， 除了字符串外， 还可以是对象或者数组</h5>
+    <h4>对象语法</h4>
+</div>
+<script>
+    var myApp = new Vue({
+        el: '#app',
+        data: {
+            bClass: 'bClass',
+            isA: true,
+            isB: false,
+            styleColor: 'blue',
+            fontSize: 30
+        },
+        methods: {
+            updateColor() {
+                this.bClass = 'cClass';
+                this.isA = false;
+                this.isB = true;
+                this.styleColor = 'red';
+                this.fontSize = 20;
+            }
+        }
+    });
+</script>
+</body>
+</html>
